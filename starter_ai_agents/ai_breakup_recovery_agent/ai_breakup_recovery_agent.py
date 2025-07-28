@@ -1,5 +1,6 @@
 from agno.agent import Agent
 from agno.models.google import Gemini
+from agno.models.deepseek import DeepSeek
 from agno.media import Image as AgnoImage
 from agno.tools.duckduckgo import DuckDuckGoTools
 import streamlit as st
@@ -15,7 +16,9 @@ logger = logging.getLogger(__name__)
 
 def initialize_agents(api_key: str) -> tuple[Agent, Agent, Agent, Agent]:
     try:
-        model = Gemini(id="gemini-2.0-flash-exp", api_key=api_key)
+        #model = Gemini(id="gemini-2.0-flash-exp", api_key=api_key)
+        model = DeepSeek(id="deepseek-chat", 
+        api_key=api_key)
         
         therapist_agent = Agent(
             model=model,
