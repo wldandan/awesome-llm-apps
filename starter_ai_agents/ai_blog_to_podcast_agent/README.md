@@ -5,9 +5,11 @@ This is a Streamlit-based application that allows users to convert any blog post
 
 - **Blog Scraping**: Scrapes the full content of any public blog URL using Firecrawl API.
 
-- **Summary Generation**: Creates an engaging and concise summary of the blog (within 2000 characters) using OpenAI GPT-4.
+- **Summary Generation**: Creates an engaging and concise summary of the blog (within 2000 characters) using either OpenAI GPT-4 or DeepSeek Chat models.
 
 - **Podcast Generation**: Converts the summary into an audio podcast using the ElevenLabs voice API.
+
+- **Model Selection**: Choose between OpenAI GPT-4o and DeepSeek Chat models for content generation.
 
 - **API Key Integration**: Requires OpenAI, Firecrawl, and ElevenLabs API keys to function, entered securely via the sidebar.
 

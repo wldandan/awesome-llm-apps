@@ -2,6 +2,7 @@ import os
 from uuid import uuid4
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
+from agno.models.deepseek import DeepSeek
 from agno.tools.eleven_labs import ElevenLabsTools
 from agno.tools.firecrawl import FirecrawlTools
 from agno.agent import Agent, RunResponse
@@ -19,6 +20,14 @@ st.sidebar.header("🔑 API Keys")
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 elevenlabs_api_key = st.sidebar.text_input("ElevenLabs API Key", type="password")
 firecrawl_api_key = st.sidebar.text_input("Firecrawl API Key", type="password")
+
+# Model Selection
+st.sidebar.header("🤖 Model Selection")
+model_choice = st.sidebar.selectbox(
+    "Choose your AI model:",
+    ["OpenAI GPT-4o", "DeepSeek Chat"],
+    index=0
+)
 
 # Check if all keys are provided
 keys_provided = all([openai_api_key, elevenlabs_api_key, firecrawl_api_key])
@@ -43,10 +52,18 @@ if generate_button:
 
         with st.spinner("Processing... Scraping blog, summarizing and generating podcast 🎶"):
             try:
+                # Select model based on user choice
+                if model_choice == "OpenAI GPT-4o":
+                    selected_model = OpenAIChat(id="gpt-4o")
+                elif model_choice == "DeepSeek Chat":
+                    selected_model = DeepSeek(id="deepseek-chat")
+                else:
+                    selected_model = OpenAIChat(id="gpt-4o")  # Default fallback
+                
                 blog_to_podcast_agent = Agent(
                     name="Blog to Podcast Agent",
                     agent_id="blog_to_podcast_agent",
-                    model=OpenAIChat(id="gpt-4o"),
+                    model=selected_model,
                     tools=[
                         ElevenLabsTools(
                             voice_id="JBFqnCBsd6RMkjVDRZzb",
